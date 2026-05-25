@@ -9,6 +9,8 @@ This project is a full relational database design and implementation for **Grand
 
 The business had been running its entire operations on a single shared Excel workbook for four years. That workbook had grown to over 50 columns, contained duplicate guest records, broken formulas, comma-separated multi-value fields, and no reliable way to answer basic business questions. This project replaces it permanently with a properly normalised relational database built in SQL Server.
 
+<img width="4018" height="2911" alt="Grandstay ER black" src="https://github.com/user-attachments/assets/7a185f92-a5fe-43bb-920d-22b14cba6526" />
+
 
 ### The Problem
 
@@ -46,17 +48,16 @@ RoomType ──< Room >── Hotel
 
 #### Tables
 
-| Table | Description | Rows (DML) |
-||||
-| `Hotel` | Master record for each GrandStay property | 6 |
-| `Room_Type` | Room type definitions with bed type and max occupancy | 5 |
-| `Room` | Individual rooms per hotel, linked to room type | 30 |
-| `Guest` | Guest profiles with loyalty tier and contact details | 20 |
-| `Booking` | Core transaction table linking hotel, room, and guest | 40 |
-| `Service` | Master catalogue of available hotel services by category | 13 |
-| `Service_Charge` | Individual service orders per booking | 20 |
-| `Payment` | Individual payment records per booking | 32 |
-
+| Table | Description 
+|---|---|
+| `Hotel` | Master record for each GrandStay property 
+| `Room_Type` | Room type definitions with bed type and max occupancy 
+| `Room` | Individual rooms per hotel, linked to room type 
+| `Guest` | Guest profiles with loyalty tier and contact details 
+| `Booking` | Core transaction table linking hotel, room, and guest 
+| `Service` | Master catalogue of available hotel services by category 
+| `Service_Charge` | Individual service orders per booking 
+| `Payment` | Individual payment records per booking 
 
 
 ### Key Design Decisions
@@ -86,13 +87,11 @@ Every table includes an `is_active BIT` column defaulting to `1`. Records are de
 Every table includes `created_at` and `updated_at` `DATETIME` columns with `DEFAULT GETDATE()`. `updated_at` is manually refreshed on every `UPDATE` statement.
 
 
-
 ### Business Questions Answered
-
 All six validation tests pass. Each query JOINs across multiple tables.
 
 | Test | Business Question | Tables Joined |
-||||
+|---|---|---|
 | 01 | Which hotels generate the most revenue and what is the average revenue per booking? | `Booking` → `Hotel` |
 | 02 | Which room types have the highest occupancy rates across all properties? | `Booking` → `Room` → `Room_Type` |
 | 03 | Which guest loyalty tier spends the most on average per stay? | `Booking` → `Guest` |
