@@ -87,14 +87,32 @@ Every table includes `created_at` and `updated_at` `DATETIME` columns with `DEFA
 ### Business Questions Answered
 All six validation tests pass. Each query JOINs across multiple tables.
 
-| Test | Business Question | Tables Joined |
-|---|---|---|
-| 01 | Which hotels generate the most revenue and what is the average revenue per booking? | `Booking` → `Hotel` |
-| 02 | Which room types have the highest occupancy rates across all properties? | `Booking` → `Room` → `Room_Type` |
-| 03 | Which guest loyalty tier spends the most on average per stay? | `Booking` → `Guest` |
-| 04 | What is the most popular ancillary service category by total revenue? | `Service_Charge` → `Service` |
-| 05 | Which bookings currently have an outstanding balance due? | `Booking` → `Hotel` → `Guest` → `Payment` (LEFT JOIN) |
-| 06 | How does booking volume and revenue trend month by month? | `Booking` → `Hotel` |
+
+
+ 01  Which hotels generate the most revenue and what is the average revenue per booking? 
+ 
+ <img width="601" height="146" alt="01 Hotel Revenue Summary" src="https://github.com/user-attachments/assets/3a6a1fef-c831-49e7-985f-71677a96b9ea" />
+
+ 02  Which room types have the highest occupancy rates across all properties?
+ 
+ <img width="409" height="129" alt="2  Room type occupancy" src="https://github.com/user-attachments/assets/c561249b-d755-4174-8c25-66ed92d08e57" />
+
+ 03  Which guest loyalty tier spends the most on average per stay? 
+ 
+ <img width="397" height="102" alt="03  Guest Loyalty Spend" src="https://github.com/user-attachments/assets/be7040cf-2d9c-4178-83ee-02666043523d" />
+
+ 04  What is the most popular ancillary service category by total revenue? 
+ 
+ <img width="280" height="164" alt="4  Service Category Revenue" src="https://github.com/user-attachments/assets/8779e3b1-63ba-4888-a956-ce2c44d77ac3" />
+
+ 05  Which bookings currently have an outstanding balance due? 
+ 
+ <img width="739" height="260" alt="5 Outstanding Balances" src="https://github.com/user-attachments/assets/f1a98057-873d-489f-b525-3bbfbdcfddae" />
+
+ 06  How does booking volume and revenue trend month by month?
+
+ <img width="451" height="194" alt="6 Monthly Booking Trend" src="https://github.com/user-attachments/assets/9ba1902a-e91d-4369-91c5-a4bffa0ae84d" />
+
 
 ### Constraints Applied
 
