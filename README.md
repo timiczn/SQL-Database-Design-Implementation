@@ -2,7 +2,6 @@
 This project is a full relational database design and implementation for a hospitality group operating across six international cities: Lagos, Abuja, London, Dubai, Accra, and Nairobi.
 # GrandStay Hotels & Resorts — SQL Database Design & Implementation
 
-
 ### Overview
 
 This project is a full relational database design and implementation for **GrandStay Hotels & Resorts**, a hospitality group operating across six international cities: Lagos, Abuja, London, Dubai, Accra, and Nairobi.
@@ -10,7 +9,6 @@ This project is a full relational database design and implementation for **Grand
 The business had been running its entire operations on a single shared Excel workbook for four years. That workbook had grown to over 50 columns, contained duplicate guest records, broken formulas, comma-separated multi-value fields, and no reliable way to answer basic business questions. This project replaces it permanently with a properly normalised relational database built in SQL Server.
 
 <img width="4018" height="2911" alt="Grandstay ER black" src="https://github.com/user-attachments/assets/7a185f92-a5fe-43bb-920d-22b14cba6526" />
-
 
 ### The Problem
 
@@ -25,7 +23,6 @@ The source Excel file had the following structural and data quality issues:
 - Discount stored as percentage text (`10%`) rather than a usable numeric value
 - Only one payment date per booking — partial payment tracking was impossible
 - Free-text fields with no standards or validation
-
 
 ### Solution
 
@@ -99,41 +96,10 @@ All six validation tests pass. Each query JOINs across multiple tables.
 | 05 | Which bookings currently have an outstanding balance due? | `Booking` → `Hotel` → `Guest` → `Payment` (LEFT JOIN) |
 | 06 | How does booking volume and revenue trend month by month? | `Booking` → `Hotel` |
 
-
-
-### SQL Files
-
-#### `grandstay_ddl.sql` — Database Creation and Table Definitions
-- Creates the `GrandStayHotels` database
-- Creates all 8 tables in correct dependency order
-- Defines all primary keys using `IDENTITY(1,1)`
-- Names all foreign key constraints with `FK_` prefix
-- Enforces business rules with `CHECK` constraints
-- Applies `NOT NULL` and `DEFAULT` values throughout
-- Includes `is_active` flags for soft delete on every table
-- Includes `created_at` and `updated_at` audit timestamps on every table
-- Creates non-clustered indexes on all foreign key columns and high-frequency filter columns
-
-#### `grandstay_dml.sql` — Data Population and Operations
-- Inserts 6 hotels across Lagos, Abuja, London, Dubai, Accra, and Nairobi
-- Inserts 5 room types with realistic bed type and occupancy assignments
-- Inserts 13 services across 6 categories: Spa, Airport Transfer, Minibar, Restaurant, Laundry, Gym
-- Inserts 30 rooms across all hotels (5 per hotel, one of each type)
-- Inserts 20 guests with a realistic mix of nationalities and loyalty tiers
-- Inserts 40 bookings across all statuses: Checked Out, Confirmed, Checked In, Cancelled, No Show
-- Inserts 20 service charge records across multiple bookings and categories
-- Inserts 32 payment records covering Paid, Partially Paid, Pending, and Refunded scenarios
-- Includes one `UPDATE` with business justification (guest loyalty tier upgrade)
-- Includes one soft `DELETE` (`is_active = 0`) for a room under renovation
-- Includes one hard `DELETE` inside a `BEGIN TRANSACTION / COMMIT / ROLLBACK` block
-- Includes one `MERGE` statement syncing updated guest contact details from a staging table
-
-
-
 ### Constraints Applied
 
 | Constraint Type | Example |
-|||
+|---|---|
 | `PRIMARY KEY` | Every table — auto-generated via `IDENTITY(1,1)` |
 | `FOREIGN KEY` | `FK_Booking_hotel_id`, `FK_Room_room_type_id`, etc. |
 | `UNIQUE` | `booking_ref`, `email`, `(hotel_id, room_number)` composite |
@@ -141,14 +107,12 @@ All six validation tests pass. Each query JOINs across multiple tables.
 | `DEFAULT` | `is_active = 1`, `currency_code = 'USD'`, `loyalty_tier = 'None'`, `created_at = GETDATE()` |
 | `NOT NULL` | All core business columns |
 
-
-
 ### Indexes
 
 Non-clustered indexes were created on all foreign key columns and columns that appear frequently in `WHERE`, `GROUP BY`, or `JOIN` clauses across the six validation queries.
 
 | Index | Table | Column | Purpose |
-|||||
+|---|---|---|---|
 | `IX_Hotel_city` | Hotel | city | Filter by city |
 | `IX_Hotel_country` | Hotel | country | Filter by country |
 | `IX_Room_hotel_id` | Room | hotel_id | JOIN to Hotel |
@@ -166,11 +130,10 @@ Non-clustered indexes were created on all foreign key columns and columns that a
 | `IX_Payment_payment_status` | Payment | payment_status | Filter in Test 05 |
 
 
-
 ### Data Quality Issues Resolved
 
 | Source Issue | Resolution |
-|||
+|---|---|
 | Mixed date formats | `DATE` / `DATETIME` columns enforce a single format at storage level |
 | Duplicate booking references | `UNIQUE` constraint on `booking_ref` |
 | Duplicate guest records | `UNIQUE` constraint on `email` |
@@ -182,18 +145,10 @@ Non-clustered indexes were created on all foreign key columns and columns that a
 | Discount as percentage text | Dropped; `discount_amount DECIMAL(10,2)` used instead |
 | Single payment date per booking | `Payment` table gives each installment its own row |
 
-
-
 ### Tools Used
 
-- **SQL Server** — database engine
 - **SSMS (SQL Server Management Studio)** — query execution and validation
 - **Excalidraw** — ERD design
 
 
 
-### Program
-
-**Data With Danny — Cohort 8**
-Reference: DWD-SQL-2026-001
-Submitted by: Olutimilehin Seun Owoseni
