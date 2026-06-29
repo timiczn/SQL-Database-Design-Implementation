@@ -1,9 +1,6 @@
-# SQL-Database-Design-Implementation
-This project is a full relational database design and implementation for a hospitality group operating across six international cities: Lagos, Abuja, London, Dubai, Accra, and Nairobi.
 # GrandStay Hotels & Resorts — SQL Database Design & Implementation
 
 ### Overview
-
 This project is a full relational database design and implementation for **GrandStay Hotels & Resorts**, a hospitality group operating across six international cities: Lagos, Abuja, London, Dubai, Accra, and Nairobi.
 
 The business had been running its entire operations on a single shared Excel workbook for four years. That workbook had grown to over 50 columns, contained duplicate guest records, broken formulas, comma-separated multi-value fields, and no reliable way to answer basic business questions. This project replaces it permanently with a properly normalised relational database built in SQL Server.
